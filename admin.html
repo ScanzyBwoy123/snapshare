@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#11101a">
+
+<title>Admin Dashboard | Junior Dangote</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root {
+  --bg: #11101a;
+  --panel: #1b1927;
+  --text: #f8f7f2;
+  --muted: #b7b4c7;
+  --gold: #d6b36a;
+  --line: #373044;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.6 system-ui, sans-serif;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.wrap {
+  width: min(850px, 100%);
+  margin: auto;
+  padding: 20px;
+}
+
+header {
+  background: #171522;
+  border-bottom: 1px solid var(--line);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 850;
+}
+
+.logo span {
+  color: var(--gold);
+}
+
+.card {
+  margin-top: 22px;
+  padding: 22px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+h1 {
+  font-size: 30px;
+  margin: 12px 0;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+p {
+  color: var(--muted);
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+  margin: 16px 0;
+}
+
+label {
+  font-weight: 750;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 12px;
+  color: white;
+  background: #151320;
+  border: 1px solid #494155;
+  border-radius: 9px;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.btn {
+  padding: 11px 15px;
+  border: 0;
+  border-radius: 10px;
+  font-weight: 800;
+}
+
+.primary {
+  background: linear-gradient(135deg, #f0d18a, #bd8c3b);
+  color: #171321;
+}
+
+.secondary {
+  background: #302a3d;
+  color: white;
+  border: 1px solid #494155;
+}
+
+.btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.status {
+  margin-top: 12px;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.album {
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.album:last-child {
+  border-bottom: 0;
+}
+
+.album h3 {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.album-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.small {
+  padding: 8px 11px;
+  font-size: 12px;
+}
+
+.note {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+a {
+  color: var(--gold);
+}
+
+@media(max-width: 500px) {
+  .wrap {
+    padding: 14px;
+  }
+
+  .card {
+    padding: 17px;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="wrap header">
+    <div class="logo"><span>✦</span> Junior Dangote Admin</div>
+
+    <button id="logoutBtn"
+      class="btn secondary hidden"
+      onclick="logout()">
+      Log out
+    </button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="loginSection" class="card">
+    <h1>Administrator Login</h1>
+
+    <p>
+      Sign in using your existing administrator account.
+    </p>
+
+    <form id="loginForm">
+      <div class="field">
+        <label for="email">Email address</label>
+        <input
+          id="email"
+          type="email"
+          autocomplete="username"
+          required>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          autocomplete="current-password"
+          required>
+      </div>
+
+      <button id="loginBtn" class="btn primary" type="submit">
+        Sign in
+      </button>
+
+      <div id="loginStatus" class="status" role="status"></div>
+    </form>
+  </section>
+
+  <section id="dashboard" class="hidden">
+
+    <div class="card">
+      <h1>Photo Gallery Dashboard</h1>
+
+      <p>
+        Create albums and upload pictures to your public gallery.
+      </p>
+
+      <p id="signedInAs" class="note"></p>
+
+      <a href="./index.html" target="_blank" rel="noopener">
+        View public gallery ↗
+      </a>
+    </div>
+
+    <div class="card">
+      <h2>Create a new album</h2>
+
+      <form id="albumForm">
+
+        <div class="field">
+          <label for="albumTitle">Album title *</label>
+
+          <input
+            id="albumTitle"
+            maxlength="90"
+            required
+            placeholder="e.g. Graduation 2026">
+        </div>
+
+        <div class="field">
+          <label for="albumDescription">Description</label>
+
+          <textarea
+            id="albumDescription"
+            maxlength="500"
+            placeholder="Describe this collection of photos"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="eventDate">Event date (optional)</label>
+
+          <input id="eventDate" type="date">
+        </div>
+
+        <button class="btn primary" type="submit">
+          Create album
+        </button>
+
+        <div id="albumStatus" class="status" role="status"></div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Upload photos</h2>
+
+      <p>
+        Choose an album, select multiple images, and upload them.
+      </p>
+
+      <form id="uploadForm">
+
+        <div class="field">
+          <label for="albumSelect">Choose album *</label>
+
+          <select id="albumSelect" required>
+            <option value="">Loading albums...</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="photoFiles">Select photos *</label>
+
+          <input
+            id="photoFiles"
+            type="file"
+            accept="image/*"
+            multiple
+            required>
+        </div>
+
+        <p class="note">
+          Upload around 20–50 images per batch for better reliability.
+          Each image must be under 25 MB.
+        </p>
+
+        <button id="uploadBtn" class="btn primary" type="submit">
+          Upload photos
+        </button>
+
+        <div id="uploadStatus" class="status" role="status"
+          aria-live="polite"></div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Manage your albums</h2>
+
+      <p>
+        Open an album in the public gallery to check the uploaded photos.
+      </p>
+
+      <div id="albumList">Loading albums...</div>
+    </div>
+
+  </section>
+
+</main>
+
+<script>
+const SUPABASE_URL =
+  'https://nfwmbuckngfzfjkspmmm.supabase.co';
+
+const SUPABASE_PUBLISHABLE_KEY =
+  'sb_publishable_GKzHvCD_CbxRS2N9CJv5Tg_dtpw80Ff';
+
+const BUCKET = 'album-photos';
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+const $ = id => document.getElementById(id);
+
+let currentUser = null;
+let albums = [];
+let busy = false;
+
+function escapeHTML(value = '') {
+  return String(value).replace(/[&<>"']/g, c => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[c]);
+}
+
+function makeSlug(value = '') {
+  return value.toLowerCase()
+    .normalize('NFKD')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 55) || 'album';
+}
+
+function setStatus(id, message) {
+  $(id).textContent = message;
+}
+
+function setBusy(button, state, busyText) {
+  button.disabled = state;
+
+  if (state) {
+    button.dataset.originalText = button.textContent;
+    button.textContent = busyText;
+  } else {
+    button.textContent =
+      button.dataset.originalText || button.textContent;
+  }
+}
+
+function showDashboard(user) {
+  currentUser = user;
+
+  $('loginSection').classList.add('hidden');
+  $('dashboard').classList.remove('hidden');
+  $('logoutBtn').classList.remove('hidden');
+
+  $('signedInAs').textContent =
+    'Signed in as: ' + user.email;
+
+  loadAlbums();
+}
+
+function showLogin() {
+  currentUser = null;
+
+  $('loginSection').classList.remove('hidden');
+  $('dashboard').classList.add('hidden');
+  $('logoutBtn').classList.add('hidden');
+}
+
+async function checkSession() {
+  const { data, error } = await db.auth.getSession();
+
+  if (error) {
+    setStatus('loginStatus', error.message);
+    return;
+  }
+
+  if (data.session?.user) {
+    showDashboard(data.session.user);
+  } else {
+    showLogin();
+  }
+}
+
+/*
+  Login is only the first access check.
+  Supabase database and storage policies must also
+  restrict write access to the intended administrator.
+*/
+
+$('loginForm').addEventListener('submit', async event => {
+  event.preventDefault();
+
+  const button = $('loginBtn');
+
+  setBusy(button, true, 'Signing in...');
+  setStatus('loginStatus', '');
+
+  try {
+    const { data, error } = await db.auth.signInWithPassword({
+      email: $('email').value.trim(),
+      password: $('password').value
+    });
+
+    if (error) throw error;
+
+    showDashboard(data.user);
+
+    setStatus('loginStatus', '');
+
+  } catch (error) {
+    setStatus('loginStatus', 'Login failed: ' + error.message);
+  } finally {
+    setBusy(button, false);
+  }
+});
+
+async function logout() {
+  const { error } = await db.auth.signOut();
+
+  if (error) {
+    alert('Unable to log out: ' + error.message);
+    return;
+  }
+
+  showLogin();
+}
+
+/* Load albums from Supabase. */
+
+async function loadAlbums() {
+  if (!currentUser) return;
+
+  $('albumList').textContent = 'Loading albums...';
+
+  try {
+    const { data, error } = await db
+      .from('albums')
+      .select('id,title,slug,description,event_date,created_at')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    albums = data || [];
+
+    const select = $('albumSelect');
+
+    select.innerHTML =
+      '<option value="">Choose an album</option>' +
+      albums.map(album => `
+        <option value="${escapeHTML(album.id)}">
+          ${escapeHTML(album.title)}
+        </option>
+      `).join('');
+
+    if (!albums.length) {
+      $('albumList').innerHTML =
+        '<p>No albums yet. Create your first album above.</p>';
+
+      return;
+    }
+
+    $('albumList').innerHTML = albums.map(album => `
+      <div class="album">
+        <h3>${escapeHTML(album.title)}</h3>
+
+        <p>${escapeHTML(
+          album.description || 'No description'
+        )}</p>
+
+        <div class="album-actions">
+          <button
+            class="btn secondary small"
+            onclick="selectAlbum('${album.id}')">
+            Upload to this album
+          </button>
+
+          <button
+            class="btn primary small"
+            onclick="openPublicAlbum('${album.id}')">
+            View public album
+          </button>
+        </div>
+      </div>
+    `).join('');
+
+  } catch (error) {
+    $('albumList').textContent =
+      'Unable to load albums: ' + error.message;
+  }
+}
+
+function selectAlbum(id) {
+  $('albumSelect').value = id;
+
+  $('uploadForm').scrollIntoView({
+    behavior: 'smooth',
+    block: 'center'
+  });
+}
+
+function openPublicAlbum(id) {
+  const url = new URL('./index.html', location.href);
+
+  url.searchParams.set('album', id);
+
+  window.open(url.href, '_blank', 'noopener,noreferrer');
+}
+
+/* Create a new album. */
+
+$('albumForm').addEventListener('submit', async event => {
+  event.preventDefault();
+
+  if (!currentUser || busy) return;
+
+  const button = $('albumForm').querySelector(
+    'button[type="submit"]'
+  );
+
+  const title = $('albumTitle').value.trim();
+
+  if (!title) {
+    setStatus('albumStatus', 'Enter an album title.');
+    return;
+  }
+
+  busy = true;
+  setBusy(button, true, 'Creating album...');
+  setStatus('albumStatus', '');
+
+  try {
+    const { data, error } = await db
+      .from('albums')
+      .insert({
+        title,
+        slug: makeSlug(title) + '-' +
+          Math.random().toString(36).slice(2, 7),
+        description: $('albumDescription').value.trim(),
+        event_date: $('eventDate').value || null,
+        created_by: currentUser.id
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    $('albumForm').reset();
+
+    await loadAlbums();
+
+    $('albumSelect').value = data.id;
+
+    setStatus(
+      'albumStatus',
+      'Album created successfully. You can upload photos to it now.'
+    );
+
+  } catch (error) {
+    setStatus(
+      'albumStatus',
+      'Could not create album: ' + error.message
+    );
+  } finally {
+    busy = false;
+    setBusy(button, false);
+  }
+});
+
+/* Upload multiple photos into an album. */
+
+$('uploadForm').addEventListener('submit', async event => {
+  event.preventDefault();
+
+  if (!currentUser || busy) return;
+
+  const albumID = $('albumSelect').value;
+  const files = Array.from($('photoFiles').files || []);
+
+  if (!albumID) {
+    setStatus('uploadStatus', 'Please choose an album.');
+    return;
+  }
+
+  if (!files.length) {
+    setStatus('uploadStatus', 'Please choose image files.');
+    return;
+  }
+
+  if (files.some(file => !file.type.startsWith('image/'))) {
+    setStatus(
+      'uploadStatus',
+      'Only image files are allowed.'
+    );
+    return;
+  }
+
+  if (files.some(file => file.size > 25 * 1024 * 1024)) {
+    setStatus(
+      'uploadStatus',
+      'One or more images exceed 25 MB.'
+    );
+    return;
+  }
+
+  const button = $('uploadBtn');
+
+  busy = true;
+  setBusy(button, true, 'Uploading...');
+  setStatus('uploadStatus', '');
+
+  let completed = 0;
+  let failures = [];
+
+  try {
+    for (const file of files) {
+      const safeName = file.name.replace(
+        /[^a-zA-Z0-9._-]/g,
+        '_'
+      );
+
+      const path =
+        albumID + '/' +
+        Date.now() + '-' +
+        Math.random().toString(36).slice(2, 9) +
+        '-' + safeName;
+
+      setStatus(
+        'uploadStatus',
+        'Uploading ' + (completed + 1) +
+        ' of ' + files.length + ': ' + file.name
+      );
+
+      const { error: uploadError } = await db
+        .storage
+        .from(BUCKET)
+        .upload(path, file, {
+          contentType: file.type
+        });
+
+      if (uploadError) {
+        failures.push(file.name + ': ' + uploadError.message);
+        continue;
+      }
+
+      const { error: recordError } = await db
+        .from('photos')
+        .insert({
+          album_id: albumID,
+          storage_path: path,
+          filename: file.name,
+          content_type: file.type,
+          size_bytes: file.size
+        });
+
+      if (recordError) {
+        failures.push(
+          file.name + ': Image uploaded but its database record failed: ' +
+          recordError.message
+        );
+
+        /*
+          The uploaded storage object may remain if its database
+          record fails. It can be cleaned up after checking access.
+        */
+
+        continue;
+      }
+
+      completed++;
+    }
+
+    $('photoFiles').value = '';
+
+    if (failures.length) {
+      setStatus(
+        'uploadStatus',
+        'Uploaded ' + completed + ' of ' + files.length +
+        ' photos.\n\nProblems:\n' + failures.join('\n')
+      );
+    } else {
+      setStatus(
+        'uploadStatus',
+        'Successfully uploaded all ' + completed + ' photos!'
+      );
+    }
+
+  } catch (error) {
+    setStatus(
+      'uploadStatus',
+      'Upload error: ' + error.message
+    );
+  } finally {
+    busy = false;
+    setBusy(button, false);
+  }
+});
+
+/* Start the admin page. */
+
+db.auth.onAuthStateChange((event, session) => {
+  if (event === 'SIGNED_OUT') {
+    showLogin();
+  } else if (
+    session?.user &&
+    (event === 'SIGNED_IN' || event === 'INITIAL_SESSION')
+  ) {
+    showDashboard(session.user);
+  }
+});
+
+checkSession();
+</script>
+
+</body>
+</html>
