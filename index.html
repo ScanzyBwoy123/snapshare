@@ -1,32 +1,1375 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#15172b"><title>Welcome to Junior Dangote | Photo Gallery</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
-<style>
-:root{--ink:#15172b;--muted:#73788c;--line:#e8e9f2;--purple:#625bf6;--bg:#f7f8fc}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}button,input,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}.wrap{max-width:1120px;margin:auto;padding:0 22px}header{background:white;border-bottom:1px solid var(--line);padding:15px 0;position:sticky;top:0;z-index:5}.nav{display:flex;justify-content:space-between;align-items:center;gap:12px}.logo{font-size:21px;font-weight:850;letter-spacing:-.7px}.logo b{display:inline-grid;place-items:center;background:var(--purple);color:white;width:36px;height:36px;border-radius:12px;margin-right:8px}.btn{border:0;border-radius:11px;padding:11px 15px;font-weight:750}.primary{background:var(--purple);color:white}.secondary{background:white;border:1px solid var(--line);color:var(--ink)}.soft{background:#efefff;color:#4942d4}.small{padding:8px 10px;font-size:13px}.hero{padding:52px 0 36px;background:radial-gradient(ellipse at 85% 0,#e5e4ff,transparent 40%),white;border-bottom:1px solid var(--line)}.eyebrow{color:var(--purple);font-size:12px;font-weight:850;letter-spacing:1.5px;text-transform:uppercase}h1{font-size:clamp(36px,6vw,58px);line-height:1.04;letter-spacing:-2px;margin:12px 0;max-width:720px}.hero p{color:var(--muted);font-size:17px;max-width:620px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.main{padding:32px 0 70px}.head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:20px}.head h2{margin:0;font-size:24px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.card{background:white;border:1px solid var(--line);border-radius:17px;overflow:hidden}.cover{height:190px;background:linear-gradient(135deg,#e5e4ff,#fde7f3);display:grid;place-items:center;font-size:52px;position:relative}.cover img{width:100%;height:100%;object-fit:cover}.count{position:absolute;bottom:10px;left:10px;background:#17182bcc;color:white;padding:4px 8px;border-radius:8px;font-size:12px}.body{padding:16px}.body h3{margin:0 0 5px}.body p{margin:0;color:var(--muted);font-size:13px;min-height:20px}.foot{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:15px}.empty{grid-column:1/-1;background:white;border:1px dashed #c8cbe0;border-radius:16px;padding:48px 18px;text-align:center}.empty .emoji{font-size:42px}.empty h3{margin:8px 0}.empty p{color:var(--muted)}.setup{margin-bottom:22px;padding:18px;background:white;border:1px solid var(--line);border-radius:15px}.setup summary{font-weight:800;cursor:pointer}.field{display:grid;gap:6px;margin:12px 0}.field label{font-weight:750;font-size:13px}.field input,.field textarea{padding:12px;border:1px solid #d6d9e7;border-radius:10px;width:100%;background:white}.field textarea{min-height:80px}.note{font-size:13px;color:var(--muted)}.notice{padding:12px 14px;border-radius:10px;margin-bottom:16px}.info{background:#eef2ff;color:#3730a3}.error{background:#fff0f0;color:#a21c1c}.success{background:#e7f9ef;color:#067647}.galleryhead{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.galleryhead h2{margin:0;font-size:clamp(26px,4vw,38px)}.gallerytools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:18px 0}.photos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.tile{aspect-ratio:1;position:relative;border-radius:12px;overflow:hidden;background:#e4e6ee;border:0}.tile img{width:100%;height:100%;object-fit:cover}.tile input{position:absolute;left:9px;top:9px;width:20px;height:20px;accent-color:var(--purple)}.back{border:0;background:none;color:var(--purple);font-weight:800;padding:0 0 15px}.modalbg{position:fixed;inset:0;background:#10122599;display:grid;place-items:center;padding:18px;z-index:20}.modal{width:min(520px,100%);max-height:92vh;overflow:auto;background:white;border-radius:18px;padding:23px}.modal h2{margin:0}.modal p{color:var(--muted)}.modalfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.status{font-size:13px;color:var(--muted);margin-top:8px;min-height:18px}footer{text-align:center;background:white;border-top:1px solid var(--line);padding:24px;color:#8b90a2;font-size:12px}
-@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.photos{grid-template-columns:repeat(3,minmax(0,1fr))}.cover{height:165px}}@media(max-width:560px){.wrap{padding:0 15px}.hero{padding:36px 0 28px}h1{letter-spacing:-1.2px}.hero p{font-size:15px}.grid{grid-template-columns:1fr}.cover{height:205px}.photos{grid-template-columns:repeat(2,minmax(0,1fr))}.logo{font-size:18px}.nav .btn{padding:9px 10px;font-size:13px}.modal{padding:18px}}
-/* Junior Dangote premium visual refresh */
-:root{--ink:#f8f7f2;--muted:#b7b4c7;--line:#343044;--purple:#d6b36a;--bg:#11101a}
-body{background:#11101a;color:var(--ink)}header{background:#171522f2;border-bottom:1px solid #373044;backdrop-filter:blur(14px)}.logo{color:#fff}.logo b{background:linear-gradient(135deg,#f4d58b,#a8782b);color:#171321;border-radius:12px}.btn{transition:transform .18s ease,filter .18s ease}.btn:hover{transform:translateY(-1px);filter:brightness(1.07)}.primary{background:linear-gradient(135deg,#f0d18a,#bd8c3b);color:#171321}.secondary{background:#211e2d;border-color:#40384e;color:#f8f7f2}.soft{background:#2b2638;color:#f0d18a}.hero{position:relative;overflow:hidden;background:radial-gradient(ellipse at 80% 30%,#4b3158 0,transparent 35%),radial-gradient(ellipse at 15% 100%,#382b45 0,transparent 42%),linear-gradient(125deg,#171522,#11101a 72%);border-bottom:1px solid #343044;padding:74px 0 58px}.hero:before{content:"";position:absolute;width:390px;height:390px;border:1px solid #d6b36a33;border-radius:50%;right:-90px;top:-180px;box-shadow:0 0 0 35px #d6b36a08,0 0 0 70px #d6b36a06;pointer-events:none}.hero .wrap{position:relative;z-index:1}.hero-layout{display:grid;grid-template-columns:1.2fr .8fr;gap:45px;align-items:center}.eyebrow{color:#e6c77f;letter-spacing:2px}.hero h1{font-size:clamp(42px,6.6vw,76px);max-width:700px;color:#fff;letter-spacing:-2.8px}.hero h1 span{color:#e6c77f}.hero p{color:#c0bdcf;font-size:18px;max-width:620px}.hero .note{color:#aaa5ba}.hero-art{min-height:320px;position:relative;display:grid;place-items:center}.art-orbit{width:290px;height:290px;border-radius:50%;border:1px solid #d6b36a70;display:grid;place-items:center;box-shadow:0 0 80px #a7773724,inset 0 0 70px #a7773712;position:relative}.art-orbit:before,.art-orbit:after{content:"";position:absolute;border:1px solid #d6b36a33;border-radius:50%;inset:22px}.art-orbit:after{inset:-18px}.art-center{width:190px;height:230px;border-radius:100px 100px 24px 24px;background:linear-gradient(155deg,#e8d09a,#a77737 55%,#4d3454);display:grid;place-items:center;font-size:78px;box-shadow:0 24px 65px #0007}.floating-tag{position:absolute;padding:11px 15px;border:1px solid #51435a;background:#211c2de8;border-radius:14px;color:#f7e7bf;font-size:13px;font-weight:750;box-shadow:0 12px 32px #0004}.tag-one{left:-4px;top:48px}.tag-two{right:-8px;bottom:52px}.hero .actions{margin-top:28px}.main{background:linear-gradient(#11101a,#151320)}.head h2,.galleryhead h2{color:#fff}.muted{color:#b7b4c7}.card,.empty,.setup{background:#1b1927;border-color:#373044;color:#f8f7f2}.card{box-shadow:0 14px 32px #0002;transition:transform .2s,border-color .2s}.card:hover{transform:translateY(-3px);border-color:#8b7045}.cover{background:linear-gradient(135deg,#392b45,#6b4d57)}.body p,.empty p,.modal p,.note{color:#b7b4c7}.field input,.field textarea{background:#151320;border-color:#494155;color:#fff}.field input::placeholder,.field textarea::placeholder{color:#777184}.notice.info{background:#29243a;color:#ead59f}.notice.error{background:#401f2b;color:#ffd1d1}.notice.success{background:#18382c;color:#b8f3d2}.photos .tile{background:#262235}.modalbg{background:#080710d9}.modal{background:#1b1927;color:#fff;border:1px solid #40384e;box-shadow:0 30px 90px #0008}.modal .secondary{background:#262235}footer{background:#171522;border-color:#343044;color:#9e98b1}.setup summary{color:#f1d48b}.back{color:#e6c77f}.count{background:#171321e8}
-@media(max-width:800px){.hero-layout{grid-template-columns:1fr;gap:18px}.hero-art{min-height:235px}.art-orbit{width:210px;height:210px}.art-center{width:135px;height:165px;font-size:56px}.tag-one{left:8%;top:22px}.tag-two{right:6%;bottom:24px}}
-@media(max-width:560px){.hero{padding:45px 0 35px}.hero h1{font-size:43px;letter-spacing:-1.5px}.hero p{font-size:16px}.hero-art{min-height:215px}.art-orbit{width:185px;height:185px}.art-center{width:118px;height:145px;font-size:48px}.floating-tag{font-size:11px;padding:9px 11px}.tag-one{left:0;top:18px}.tag-two{right:0;bottom:18px}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#11101a">
 
-</style></head><body>
-<header><div class="wrap nav"><div class="logo"><b>✦</b>Junior Dangote</div><div><button id="loginBtn" class="btn secondary" onclick="authAction()">Admin login</button> <button id="createBtn" class="btn primary hidden" onclick="newAlbum()">＋ Create album</button></div></div></header>
-<section class="hero" id="hero"><div class="wrap hero-layout"><div class="hero-copy"><div class="eyebrow">✦ THE OFFICIAL PHOTO GALLERY</div><h1>Welcome to <span>Junior Dangote</span></h1><p>Every moment has a story. Explore the memories, relive the special occasions, and download your favourite photos—or the entire album—in just a few taps.</p><div class="actions"><button class="btn primary" onclick="authAction()">＋ Create an album</button><button class="btn secondary" onclick="document.getElementById('albumSection').scrollIntoView({behavior:'smooth'})">Explore photo albums ↓</button></div><p class="note">✓ No account needed to view &nbsp; · &nbsp; ✓ Download full albums &nbsp; · &nbsp; ✓ Made for mobile</p></div><div class="hero-art" aria-hidden="true"><div class="art-orbit"><div class="art-center">✦</div></div><div class="floating-tag tag-one">📸 Moments that matter</div><div class="floating-tag tag-two">♡ Memories forever</div></div></div></section>
-<main class="main"><div class="wrap"><div id="notice" class="notice info hidden"></div><details id="setup" class="setup"><summary>⚙️ Connect Supabase (one-time setup)</summary><p class="note">Enter your Supabase project URL and public anon/publishable key. Never put a service-role key here.</p><div class="field"><label>Project URL</label><input id="projectUrl" placeholder="https://your-project.supabase.co"></div><div class="field"><label>Publishable / anon key</label><input id="projectKey" placeholder="sb_publishable_... or anon key"></div><button class="btn primary" onclick="saveConfig()">Connect project</button><div id="setupStatus" class="status"></div><p class="note">Run <b>supabase-setup.sql</b> from this repository in Supabase SQL Editor, then create your admin account under Authentication → Users. Photo files are public so anyone with their link can view them; do not upload sensitive photos.</p></details>
-<section id="albumSection"><div class="head"><div><h2>Photo albums</h2><div class="muted">A home for the moments worth keeping.</div></div><span id="albumCount" class="note">0 albums</span></div><div id="albumGrid" class="grid"></div></section>
-<section id="gallerySection" class="hidden"><button class="back" onclick="showAlbums()">← All albums</button><div class="galleryhead"><div><div class="eyebrow">Photo album</div><h2 id="galleryTitle"></h2><div id="galleryDesc" class="muted"></div></div><div class="actions"><button class="btn secondary" onclick="shareAlbum()">↗ Share link</button><button class="btn primary" onclick="downloadSelected()">↓ Selected</button><button class="btn primary" onclick="downloadAll()">⇩ Download all</button></div></div><div class="gallerytools"><span id="photoCount" class="note">0 photos</span><button class="btn secondary small" onclick="selectAll(true)">Select all</button><button class="btn secondary small" onclick="selectAll(false)">Clear selection</button><span id="downloadStatus" class="status"></span></div><div id="photoGrid" class="photos"></div></section></div></main><footer>Junior Dangote · Memories worth sharing.</footer><div id="modalRoot"></div>
+<title>Junior Dangote | Photo Gallery</title>
+
+<meta name="description"
+content="Explore and download photos from Junior Dangote's photo gallery.">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
+<style>
+:root {
+  --bg: #11101a;
+  --panel: #1b1927;
+  --panel2: #211e2d;
+  --text: #f8f7f2;
+  --muted: #b7b4c7;
+  --gold: #d6b36a;
+  --gold-light: #f0d18a;
+  --line: #373044;
+  --purple: #625bf6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.wrap {
+  width: min(1120px, 100%);
+  margin: auto;
+  padding: 0 20px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #171522f5;
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(14px);
+}
+
+.nav {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 850;
+  letter-spacing: -.6px;
+}
+
+.logo b {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin-right: 10px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--gold-light), #a8782b);
+  color: #171321;
+}
+
+.btn {
+  padding: 11px 15px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  font-weight: 750;
+  transition: transform .2s, filter .2s;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+.primary {
+  background: linear-gradient(135deg, var(--gold-light), #bd8c3b);
+  color: #171321;
+  border: 0;
+}
+
+.secondary {
+  background: var(--panel2);
+  color: var(--text);
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 65px 0 55px;
+  background:
+    radial-gradient(ellipse at 80% 30%, #4b3158 0, transparent 35%),
+    radial-gradient(ellipse at 15% 100%, #382b45 0, transparent 42%),
+    linear-gradient(125deg, #171522, #11101a 72%);
+  border-bottom: 1px solid var(--line);
+}
+
+.hero-layout {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 35px;
+  align-items: center;
+}
+
+.eyebrow {
+  color: #e6c77f;
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+h1 {
+  max-width: 700px;
+  margin: 15px 0;
+  font-size: clamp(42px, 6.5vw, 74px);
+  line-height: 1.05;
+  letter-spacing: -2.5px;
+  color: white;
+}
+
+h1 span {
+  color: #e6c77f;
+}
+
+.hero p {
+  max-width: 620px;
+  color: #c0bdcf;
+  font-size: 17px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 23px;
+}
+
+.hero-art {
+  min-height: 300px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.art-orbit {
+  width: 270px;
+  height: 270px;
+  border: 1px solid #d6b36a70;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 80px #a7773724;
+  position: relative;
+}
+
+.art-orbit::before {
+  content: "";
+  position: absolute;
+  inset: 20px;
+  border: 1px solid #d6b36a33;
+  border-radius: 50%;
+}
+
+.art-center {
+  width: 170px;
+  height: 205px;
+  display: grid;
+  place-items: center;
+  border-radius: 100px 100px 24px 24px;
+  background: linear-gradient(155deg, #e8d09a, #a77737 55%, #4d3454);
+  box-shadow: 0 24px 65px #0007;
+  font-size: 75px;
+}
+
+.floating-tag {
+  position: absolute;
+  padding: 10px 14px;
+  border: 1px solid #51435a;
+  border-radius: 13px;
+  background: #211c2de8;
+  color: #f7e7bf;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.tag-one {
+  left: 0;
+  top: 45px;
+}
+
+.tag-two {
+  right: 0;
+  bottom: 45px;
+}
+
+main {
+  min-height: 55vh;
+  padding: 35px 0 70px;
+  background: linear-gradient(#11101a, #151320);
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.section-head h2,
+.gallery-head h2 {
+  margin: 0;
+  font-size: clamp(25px, 4vw, 36px);
+  color: white;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.note {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.card {
+  overflow: hidden;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  box-shadow: 0 14px 32px #0002;
+  transition: transform .2s, border-color .2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: #8b7045;
+}
+
+.cover {
+  height: 200px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #392b45, #6b4d57);
+  font-size: 45px;
+}
+
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.count {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  padding: 5px 9px;
+  border-radius: 8px;
+  background: #171321e8;
+  color: white;
+  font-size: 12px;
+}
+
+.card-body {
+  padding: 16px;
+}
+
+.card-body h3 {
+  margin: 0 0 5px;
+  overflow-wrap: anywhere;
+}
+
+.card-body p {
+  min-height: 20px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.card-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  padding: 45px 20px;
+  text-align: center;
+  background: var(--panel);
+  border: 1px dashed #51475f;
+  border-radius: 16px;
+}
+
+.empty .emoji {
+  font-size: 43px;
+}
+
+.empty h3 {
+  margin: 8px 0;
+}
+
+.empty p {
+  color: var(--muted);
+}
+
+.gallery-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.gallery-head .actions {
+  margin-top: 0;
+}
+
+.back {
+  padding: 0;
+  margin-bottom: 20px;
+  border: 0;
+  background: none;
+  color: var(--gold-light);
+  font-weight: 800;
+}
+
+.gallery-tools {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin: 20px 0;
+}
+
+.small {
+  padding: 8px 11px;
+  font-size: 12px;
+}
+
+.photos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.photo-card {
+  min-width: 0;
+  overflow: hidden;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.photo-image {
+  aspect-ratio: 1;
+  position: relative;
+  background: #262235;
+  overflow: hidden;
+}
+
+.photo-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  cursor: zoom-in;
+}
+
+.photo-image input {
+  position: absolute;
+  left: 9px;
+  top: 9px;
+  width: 21px;
+  height: 21px;
+  accent-color: var(--gold);
+  cursor: pointer;
+}
+
+.photo-caption {
+  padding: 9px;
+}
+
+.photo-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.photo-download {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px 5px;
+  border: 0;
+  border-radius: 8px;
+  background: #2b2638;
+  color: #f0d18a;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.status {
+  width: 100%;
+  min-height: 20px;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.notice {
+  padding: 13px 15px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  overflow-wrap: anywhere;
+}
+
+.info {
+  background: #29243a;
+  color: #ead59f;
+}
+
+.error {
+  background: #401f2b;
+  color: #ffd1d1;
+}
+
+footer {
+  padding: 25px 15px;
+  text-align: center;
+  background: #171522;
+  border-top: 1px solid var(--line);
+  color: #9e98b1;
+  font-size: 12px;
+}
+
+@media(max-width: 800px) {
+  .hero-layout {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .hero-art {
+    min-height: 240px;
+  }
+
+  .art-orbit {
+    width: 210px;
+    height: 210px;
+  }
+
+  .art-center {
+    width: 135px;
+    height: 160px;
+    font-size: 55px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .photos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media(max-width: 560px) {
+  .wrap {
+    padding: 0 15px;
+  }
+
+  .hero {
+    padding: 38px 0 30px;
+  }
+
+  h1 {
+    font-size: 43px;
+    letter-spacing: -1.5px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .hero-art {
+    min-height: 215px;
+  }
+
+  .art-orbit {
+    width: 180px;
+    height: 180px;
+  }
+
+  .art-center {
+    width: 115px;
+    height: 140px;
+    font-size: 47px;
+  }
+
+  .floating-tag {
+    font-size: 10px;
+    padding: 8px 9px;
+  }
+
+  .tag-one {
+    left: 0;
+    top: 18px;
+  }
+
+  .tag-two {
+    right: 0;
+    bottom: 18px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cover {
+    height: 220px;
+  }
+
+  .photos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .gallery-head .actions {
+    width: 100%;
+  }
+
+  .gallery-head .btn {
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo"><b>✦</b>Junior Dangote</div>
+    <span class="note">Official Photo Gallery</span>
+  </div>
+</header>
+
+<section class="hero" id="hero">
+  <div class="wrap hero-layout">
+
+    <div>
+      <div class="eyebrow">✦ The Official Photo Gallery</div>
+
+      <h1>Welcome to <span>Junior Dangote</span></h1>
+
+      <p>
+        Every moment has a story. Explore the memories, relive
+        special occasions, and download your favourite photos
+        or entire albums in just a few taps.
+      </p>
+
+      <div class="actions">
+        <button class="btn primary"
+          onclick="scrollToAlbums()">
+          Explore Photo Albums ↓
+        </button>
+      </div>
+
+      <p class="note">
+        ✓ No account needed &nbsp; · &nbsp;
+        ✓ Download individual photos &nbsp; · &nbsp;
+        ✓ Download complete albums
+      </p>
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+      <div class="art-orbit">
+        <div class="art-center">✦</div>
+      </div>
+
+      <div class="floating-tag tag-one">
+        📸 Moments that matter
+      </div>
+
+      <div class="floating-tag tag-two">
+        ♡ Memories forever
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<main>
+  <div class="wrap">
+
+    <div id="notice" class="notice info hidden"></div>
+
+    <section id="albumSection">
+      <div class="section-head">
+        <div>
+          <h2>Photo Albums</h2>
+          <div class="muted">
+            A home for the moments worth keeping.
+          </div>
+        </div>
+
+        <span id="albumCount" class="note">Loading albums...</span>
+      </div>
+
+      <div id="albumGrid" class="grid">
+        <div class="empty">
+          <div class="emoji">📸</div>
+          <h3>Loading your gallery</h3>
+          <p>Please wait while we load the photo albums.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallerySection" class="hidden">
+
+      <button class="back" onclick="showAlbums()">
+        ← All Albums
+      </button>
+
+      <div class="gallery-head">
+        <div>
+          <div class="eyebrow">Photo Album</div>
+          <h2 id="galleryTitle"></h2>
+          <div id="galleryDesc" class="muted"></div>
+        </div>
+
+        <div class="actions">
+          <button class="btn secondary"
+            onclick="shareAlbum()">
+            ↗ Share Link
+          </button>
+
+          <button class="btn primary"
+            onclick="downloadSelected()">
+            ↓ Selected
+          </button>
+
+          <button class="btn primary"
+            onclick="downloadAll()">
+            ⇩ Download All
+          </button>
+        </div>
+      </div>
+
+      <div class="gallery-tools">
+        <span id="photoCount" class="note">0 photos</span>
+
+        <button class="btn secondary small"
+          onclick="selectAll(true)">
+          Select All
+        </button>
+
+        <button class="btn secondary small"
+          onclick="selectAll(false)">
+          Clear Selection
+        </button>
+      </div>
+
+      <div id="downloadStatus" class="status"
+        role="status" aria-live="polite"></div>
+
+      <div id="photoGrid" class="photos"></div>
+
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  Junior Dangote · Memories worth sharing.
+</footer>
+
 <script>
-const CFG='snapshare_config_v1';let db=null,user=null,admin=false,albums=[],album=null,photos=[],chosen=new Set();const $=id=>document.getElementById(id);
-function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}function slug(s=''){return s.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,55)||'album';}function msg(t,type='info'){const n=$('notice');n.className='notice '+type;n.textContent=t;n.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}
-function saveConfig(){const url=$('projectUrl').value.trim().replace(/\/$/,'');const key=$('projectKey').value.trim();if(!/^https:\/\/[\w.-]+\.supabase\.co$/.test(url)||!key){$('setupStatus').textContent='Please enter a valid project URL and public key.';return;}localStorage.setItem(CFG,JSON.stringify({url,key}));connect();}function updateAuthUI(){$('loginBtn').textContent=admin?'Log out':'Admin login';$('createBtn').classList.toggle('hidden',!admin);}function modal(content){$('modalRoot').innerHTML='<div class="modalbg" onclick="if(event.target===this)closeModal()"><div class="modal">'+content+'</div></div>';document.body.style.overflow='hidden';}function closeModal(){$('modalRoot').innerHTML='';document.body.style.overflow='';}
-async function connect(){const raw=localStorage.getItem(CFG);if(!raw){$('setup').open=true;emptyState('Connect Supabase to enable uploads and shareable galleries.');return;}try{const c=JSON.parse(raw);$('projectUrl').value=c.url;$('projectKey').value=c.key;db=window.supabase.createClient(c.url,c.key);const {data:{session}}=await db.auth.getSession();user=session?.user||null;admin=!!user;updateAuthUI();db.auth.onAuthStateChange((_e,s)=>{user=s?.user||null;admin=!!user;updateAuthUI();loadAlbums();});$('setupStatus').textContent='Connected.';$('setup').open=false;await loadAlbums();const id=new URLSearchParams(location.search).get('album');if(id)openAlbum(id);}catch(e){$('setupStatus').textContent='Connection failed: '+e.message;}}
-function emptyState(t){$('albumGrid').innerHTML='<div class="empty"><div class="emoji">📷</div><h3>Your galleries start here</h3><p>'+esc(t)+'</p><button class="btn primary" onclick="$(\'setup\').open=true;window.scrollTo({top:0,behavior:\'smooth\'})">Connect Supabase</button></div>';}
-function authAction(){if(!db){$('setup').open=true;$('setup').scrollIntoView({behavior:'smooth'});msg('Connect Supabase first. Then create an admin user in Supabase Authentication.');return;}if(admin){db.auth.signOut();return;}modal('<h2>Admin login</h2><p>Sign in using the account you created in Supabase Authentication.</p><form onsubmit="return login(event)"><div class="field"><label>Email</label><input id="email" type="email" autocomplete="email" required></div><div class="field"><label>Password</label><input id="password" type="password" autocomplete="current-password" required></div><div id="authStatus" class="status"></div><div class="modalfoot"><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button><button class="btn primary">Sign in</button></div></form>');}async function login(e){e.preventDefault();$('authStatus').textContent='Signing in…';const {error}=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error){$('authStatus').textContent=error.message;return false;}closeModal();msg('Signed in successfully.','success');return false;}
-function newAlbum(){if(!admin)return authAction();modal('<h2>Create album</h2><p>Give your photo collection a name.</p><form onsubmit="return createAlbum(event)"><div class="field"><label>Album title *</label><input id="albumName" maxlength="90" required placeholder="e.g. Graduation 2026"></div><div class="field"><label>Description</label><textarea id="albumDescription" maxlength="500" placeholder="A few words about this event…"></textarea></div><div class="field"><label>Event date (optional)</label><input id="albumDate" type="date"></div><div id="createStatus" class="status"></div><div class="modalfoot"><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button><button class="btn primary">Create album</button></div></form>');}async function createAlbum(e){e.preventDefault();$('createStatus').textContent='Creating album…';const title=$('albumName').value.trim();const {data,error}=await db.from('albums').insert({title,slug:slug(title)+'-'+Math.random().toString(36).slice(2,7),description:$('albumDescription').value.trim(),event_date:$('albumDate').value||null,created_by:user.id}).select().single();if(error){$('createStatus').textContent=error.message;return false;}closeModal();await loadAlbums();await openAlbum(data.id);msg('Album created. Upload your photos now.','success');return false;}
-async function loadAlbums(){if(!db){emptyState('Connect Supabase to enable uploads and shareable galleries.');return;}const {data,error}=await db.from('albums').select('id,title,slug,description,event_date,created_at').order('created_at',{ascending:false});if(error){$('albumGrid').innerHTML='<div class="empty"><div class="emoji">⚙️</div><h3>Database setup needed</h3><p>'+esc(error.message)+'</p><p>Run supabase-setup.sql in your Supabase SQL Editor.</p></div>';return;}albums=data||[];$('albumCount').textContent=albums.length+' albums';if(!albums.length){$('albumGrid').innerHTML='<div class="empty"><div class="emoji">📸</div><h3>Your first album is waiting</h3><p>Create an album, upload your pictures, and share one link.</p>'+(admin?'<button class="btn primary" onclick="newAlbum()">＋ Create album</button>':'<button class="btn primary" onclick="authAction()">Admin login</button>')+'</div>';return;}const cards=await Promise.all(albums.map(async a=>{const {count}=await db.from('photos').select('id',{count:'exact',head:true}).eq('album_id',a.id);const {data:p}=await db.from('photos').select('storage_path').eq('album_id',a.id).order('created_at').limit(1);const cover=p?.[0]?db.storage.from('album-photos').getPublicUrl(p[0].storage_path).data.publicUrl:'';return {...a,count:count||0,cover};}));$('albumGrid').innerHTML=cards.map(a=>'<article class="card"><div class="cover">'+(a.cover?'<img loading="lazy" src="'+esc(a.cover)+'" alt="">':'📷')+'<span class="count">▦ '+a.count+' photos</span></div><div class="body"><h3>'+esc(a.title)+'</h3><p>'+esc(a.description||'A collection of shared memories.')+'</p><div class="foot"><span class="note">'+(a.event_date?new Date(a.event_date+'T12:00:00').toLocaleDateString():'Photo album')+'</span><button class="btn soft small" onclick="openAlbum(\''+a.id+'\')">View gallery →</button></div></div></article>').join('');}
-function showAlbums(){album=null;photos=[];chosen.clear();$('gallerySection').classList.add('hidden');$('albumSection').classList.remove('hidden');$('hero').classList.remove('hidden');history.replaceState({},'',location.pathname);loadAlbums();}async function openAlbum(id){if(!db)return;let a=albums.find(x=>x.id===id);if(!a){const {data,error}=await db.from('albums').select('*').eq('id',id).single();if(error){msg('Album not found. Please check the link.','error');return;}a=data;}album=a;history.replaceState({},'',location.pathname+'?album='+encodeURIComponent(id));$('hero').classList.add('hidden');$('albumSection').classList.add('hidden');$('gallerySection').classList.remove('hidden');$('galleryTitle').textContent=a.title;$('galleryDesc').textContent=a.description||'All the moments from this event, in one place.';$('photoGrid').innerHTML='<p class="muted">Loading photos…</p>';chosen.clear();const {data,error}=await db.from('photos').select('*').eq('album_id',id).order('created_at');if(error){$('photoGrid').textContent=error.message;return;}photos=data||[];$('photoCount').textContent=photos.length+' photos';$('photoGrid').innerHTML=photos.length?photos.map(p=>{const url=db.storage.from('album-photos').getPublicUrl(p.storage_path).data.publicUrl;return '<div class="tile" onclick="togglePhoto(\''+p.id+'\')"><img loading="lazy" src="'+esc(url)+'" alt="'+esc(p.filename)+'"><input type="checkbox" id="check-'+p.id+'" aria-label="Select photo" onclick="event.stopPropagation();togglePhoto(\''+p.id+'\')"></div>';}).join(''):'<div class="empty"><div class="emoji">🖼️</div><h3>No photos yet</h3><p>'+(admin?'Upload the first photos to this album.':'The owner has not uploaded photos yet.')+'</p></div>';if(admin)$('photoGrid').insertAdjacentHTML('beforeend','<button class="tile" style="border:1px dashed #a9a4ff;background:#efefff;color:#4942d4;font-weight:800" onclick="uploadModal()">＋ Upload photos</button>');}
-function togglePhoto(id){if(chosen.has(id))chosen.delete(id);else chosen.add(id);const c=$('check-'+id);if(c)c.checked=chosen.has(id);$('downloadStatus').textContent=chosen.size?chosen.size+' selected':'';}function selectAll(on){chosen.clear();if(on)photos.forEach(p=>chosen.add(p.id));photos.forEach(p=>{const c=$('check-'+p.id);if(c)c.checked=on;});$('downloadStatus').textContent=chosen.size?chosen.size+' selected':'';}function shareAlbum(){if(!album)return;const url=location.origin+location.pathname+'?album='+encodeURIComponent(album.id);if(navigator.share)navigator.share({title:album.title,text:'View and download photos from '+album.title,url}).catch(()=>{});else if(navigator.clipboard)navigator.clipboard.writeText(url).then(()=>msg('Album link copied. Share it with everyone!','success')).catch(()=>prompt('Copy album link:',url));else prompt('Copy album link:',url);}
-async function zipDownload(items,name){if(!items.length){msg('No photos selected or available yet.');return;}const s=$('downloadStatus');s.textContent='Preparing ZIP…';try{const zip=new JSZip();let i=0;for(const p of items){const url=db.storage.from('album-photos').getPublicUrl(p.storage_path).data.publicUrl;const r=await fetch(url);if(!r.ok)throw Error('Unable to fetch '+p.filename);zip.file(p.filename||('photo-'+(++i)+'.jpg'),await r.blob());i++;s.textContent='Preparing '+i+' of '+items.length+' photos…';}const blob=await zip.generateAsync({type:'blob'},m=>s.textContent='Building ZIP '+Math.round(m.percent)+'%');const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),30000);s.textContent='ZIP download started.';}catch(e){s.textContent='Download failed: '+e.message+'. Try fewer photos at once.';}}function downloadSelected(){zipDownload(photos.filter(p=>chosen.has(p.id)),slug(album?.title||'photos')+'-selected.zip');}function downloadAll(){zipDownload(photos,slug(album?.title||'photos')+'-photos.zip');}
-function uploadModal(){if(!admin||!album)return;modal('<h2>Upload photos</h2><p>Select multiple pictures at once. Keep this page open until the upload completes.</p><form onsubmit="return uploadPhotos(event)"><div class="field"><label>Choose image files</label><input id="files" type="file" accept="image/*" multiple required></div><p class="note">Upload batches of around 20–50 images for reliability. Each image must be under 25 MB.</p><div id="uploadStatus" class="status"></div><div class="modalfoot"><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button><button class="btn primary" type="submit">Upload photos</button></div></form>');}async function uploadPhotos(e){e.preventDefault();const files=Array.from($('files').files||[]),s=$('uploadStatus');if(files.some(f=>!f.type.startsWith('image/'))){s.textContent='Please select image files only.';return false;}if(files.some(f=>f.size>25*1024*1024)){s.textContent='One or more files exceed 25 MB.';return false;}let done=0;s.textContent='Uploading '+files.length+' photos…';const btn=$('modalRoot').querySelector('button[type=submit]');btn.disabled=true;for(const f of files){const safe=f.name.replace(/[^a-zA-Z0-9._-]/g,'_'),path=album.id+'/'+Date.now()+'-'+Math.random().toString(36).slice(2,8)+'-'+safe;const {error}=await db.storage.from('album-photos').upload(path,f,{contentType:f.type});if(error){s.textContent='Upload stopped after '+done+' photos: '+error.message;btn.disabled=false;return false;}const {error:dbError}=await db.from('photos').insert({album_id:album.id,storage_path:path,filename:f.name,content_type:f.type,size_bytes:f.size});if(dbError){s.textContent='Photo uploaded but record creation failed: '+dbError.message;btn.disabled=false;return false;}done++;s.textContent='Uploaded '+done+' of '+files.length+'…';}closeModal();await openAlbum(album.id);msg('Uploaded '+done+' photos successfully.','success');return false;}
-connect();
-</script></body></html>
+/*
+  PUBLIC GALLERY CONFIGURATION
+
+  The publishable key is intended for browser use.
+  Never put a Supabase service-role key in this file.
+
+  Public access is still controlled by Supabase RLS policies.
+*/
+
+const SUPABASE_URL =
+  'https://nfwmbuckngfzfjkspmmm.supabase.co';
+
+const SUPABASE_PUBLISHABLE_KEY =
+  'sb_publishable_GKzHvCD_CbxRS2N9CJv5Tg_dtpw80Ff';
+
+const BUCKET = 'album-photos';
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+let albums = [];
+let currentAlbum = null;
+let photos = [];
+let chosen = new Set();
+let noticeTimer = null;
+
+const $ = id => document.getElementById(id);
+
+function escapeHTML(value = '') {
+  return String(value).replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[char]);
+}
+
+function slug(value = '') {
+  return String(value)
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 55) || 'album';
+}
+
+function showNotice(message, type = 'info') {
+  const box = $('notice');
+
+  box.textContent = message;
+  box.className = 'notice ' + type;
+  box.classList.remove('hidden');
+
+  clearTimeout(noticeTimer);
+
+  noticeTimer = setTimeout(() => {
+    box.classList.add('hidden');
+  }, 6500);
+}
+
+function setStatus(message) {
+  $('downloadStatus').textContent = message;
+}
+
+function scrollToAlbums() {
+  $('albumSection').scrollIntoView({
+    behavior: 'smooth'
+  });
+}
+
+function publicPhotoURL(path) {
+  return db.storage
+    .from(BUCKET)
+    .getPublicUrl(path).data.publicUrl;
+}
+
+/* Load the public album list. */
+
+async function loadAlbums() {
+  $('albumGrid').innerHTML =
+    '<div class="empty"><div class="emoji">📸</div>' +
+    '<h3>Loading albums...</h3>' +
+    '<p>Please wait.</p></div>';
+
+  try {
+    const { data, error } = await db
+      .from('albums')
+      .select('id,title,slug,description,event_date,created_at')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    albums = data || [];
+
+    $('albumCount').textContent =
+      albums.length + (albums.length === 1 ? ' album' : ' albums');
+
+    if (!albums.length) {
+      $('albumGrid').innerHTML =
+        '<div class="empty">' +
+        '<div class="emoji">🖼️</div>' +
+        '<h3>No albums available yet</h3>' +
+        '<p>Please check back later for new photos.</p>' +
+        '</div>';
+
+      return;
+    }
+
+    const results = await Promise.all(
+      albums.map(async album => {
+        const [countResult, coverResult] = await Promise.all([
+          db.from('photos')
+            .select('id', { count: 'exact', head: true })
+            .eq('album_id', album.id),
+
+          db.from('photos')
+            .select('storage_path')
+            .eq('album_id', album.id)
+            .order('created_at', { ascending: true })
+            .limit(1)
+        ]);
+
+        const coverPath = coverResult.data?.[0]?.storage_path;
+
+        return {
+          ...album,
+          photoCount: countResult.count || 0,
+          coverURL: coverPath ? publicPhotoURL(coverPath) : ''
+        };
+      })
+    );
+
+    $('albumGrid').innerHTML = results.map(album => `
+      <article class="card">
+
+        <div class="cover">
+          ${
+            album.coverURL
+              ? `<img loading="lazy"
+                   src="${escapeHTML(album.coverURL)}"
+                   alt="${escapeHTML(album.title)} cover">`
+              : '📷'
+          }
+
+          <span class="count">
+            ▦ ${album.photoCount} photos
+          </span>
+        </div>
+
+        <div class="card-body">
+          <h3>${escapeHTML(album.title)}</h3>
+
+          <p>
+            ${escapeHTML(
+              album.description || 'A collection of shared memories.'
+            )}
+          </p>
+
+          <div class="card-foot">
+            <span class="note">
+              ${
+                album.event_date
+                  ? new Date(
+                      album.event_date + 'T12:00:00'
+                    ).toLocaleDateString()
+                  : 'Photo album'
+              }
+            </span>
+
+            <button class="btn primary small"
+              onclick="openAlbum('${album.id}')">
+              View Album →
+            </button>
+          </div>
+        </div>
+
+      </article>
+    `).join('');
+
+    /*
+      Reopen an album if a visitor arrives through
+      a previously shared album link.
+    */
+
+    const sharedAlbumID =
+      new URLSearchParams(location.search).get('album');
+
+    if (sharedAlbumID) {
+      await openAlbum(sharedAlbumID);
+    }
+
+  } catch (error) {
+    console.error('Album loading failed:', error);
+
+    $('albumCount').textContent = 'Unable to load';
+
+    $('albumGrid').innerHTML = `
+      <div class="empty">
+        <div class="emoji">⚠️</div>
+        <h3>Unable to load the gallery</h3>
+        <p>${escapeHTML(error.message)}</p>
+        <button class="btn primary"
+          onclick="loadAlbums()">
+          Try Again
+        </button>
+      </div>
+    `;
+  }
+}
+
+/* Open a particular album. */
+
+async function openAlbum(id) {
+  $('photoGrid').innerHTML =
+    '<div class="empty"><h3>Loading photos...</h3></div>';
+
+  $('albumSection').classList.add('hidden');
+  $('hero').classList.add('hidden');
+  $('gallerySection').classList.remove('hidden');
+
+  $('galleryTitle').textContent = 'Loading album...';
+  $('galleryDesc').textContent = '';
+
+  currentAlbum = null;
+  photos = [];
+  chosen.clear();
+
+  setStatus('');
+
+  history.replaceState(
+    {},
+    '',
+    location.pathname + '?album=' + encodeURIComponent(id)
+  );
+
+  try {
+    let album = albums.find(item => item.id === id);
+
+    if (!album) {
+      const result = await db
+        .from('albums')
+        .select('id,title,slug,description,event_date,created_at')
+        .eq('id', id)
+        .single();
+
+      if (result.error) throw result.error;
+
+      album = result.data;
+    }
+
+    const result = await db
+      .from('photos')
+      .select('id,album_id,storage_path,filename,content_type,size_bytes,created_at')
+      .eq('album_id', id)
+      .order('created_at', { ascending: true });
+
+    if (result.error) throw result.error;
+
+    currentAlbum = album;
+    photos = result.data || [];
+
+    $('galleryTitle').textContent = album.title;
+
+    $('galleryDesc').textContent =
+      album.description ||
+      'All the moments from this event, in one place.';
+
+    $('photoCount').textContent =
+      photos.length + (photos.length === 1 ? ' photo' : ' photos');
+
+    if (!photos.length) {
+      $('photoGrid').innerHTML = `
+        <div class="empty">
+          <div class="emoji">🖼️</div>
+          <h3>No photos in this album yet</h3>
+          <p>Please check back later.</p>
+        </div>
+      `;
+
+      return;
+    }
+
+    $('photoGrid').innerHTML = photos.map(photo => {
+      const url = publicPhotoURL(photo.storage_path);
+
+      return `
+        <article class="photo-card">
+
+          <div class="photo-image">
+            <img
+              loading="lazy"
+              src="${escapeHTML(url)}"
+              alt="${escapeHTML(photo.filename)}"
+              onclick="viewPhoto('${photo.id}')">
+
+            <input
+              type="checkbox"
+              id="check-${photo.id}"
+              aria-label="Select ${escapeHTML(photo.filename)}"
+              onchange="togglePhoto('${photo.id}', this.checked)">
+          </div>
+
+          <div class="photo-caption">
+
+            <div class="photo-name"
+              title="${escapeHTML(photo.filename)}">
+              ${escapeHTML(photo.filename)}
+            </div>
+
+            <button class="photo-download"
+              onclick="downloadPhoto('${photo.id}', this)">
+              ↓ Download Photo
+            </button>
+
+          </div>
+
+        </article>
+      `;
+    }).join('');
+
+  } catch (error) {
+    console.error('Unable to open album:', error);
+
+    $('photoGrid').innerHTML = `
+      <div class="empty">
+        <div class="emoji">⚠️</div>
+        <h3>Unable to open this album</h3>
+        <p>${escapeHTML(error.message)}</p>
+        <button class="btn primary"
+          onclick="showAlbums()">
+          Return to Albums
+        </button>
+      </div>
+    `;
+  }
+}
+
+/* Return to the album list. */
+
+function showAlbums() {
+  currentAlbum = null;
+  photos = [];
+  chosen.clear();
+
+  $('gallerySection').classList.add('hidden');
+  $('albumSection').classList.remove('hidden');
+  $('hero').classList.remove('hidden');
+
+  history.replaceState({}, '', location.pathname);
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* Select and deselect photos. */
+
+function togglePhoto(id, checked) {
+  if (checked) {
+    chosen.add(id);
+  } else {
+    chosen.delete(id);
+  }
+
+  setStatus(
+    chosen.size ? chosen.size + ' photos selected.' : ''
+  );
+}
+
+function selectAll(select) {
+  chosen.clear();
+
+  if (select) {
+    photos.forEach(photo => chosen.add(photo.id));
+  }
+
+  photos.forEach(photo => {
+    const checkbox = $('check-' + photo.id);
+
+    if (checkbox) {
+      checkbox.checked = select;
+    }
+  });
+
+  setStatus(
+    chosen.size ? chosen.size + ' photos selected.' : ''
+  );
+}
+
+/* Download one photo. */
+
+async function downloadPhoto(id, button) {
+  const photo = photos.find(item => item.id === id);
+
+  if (!photo) return;
+
+  const originalText = button.textContent;
+
+  button.disabled = true;
+  button.textContent = 'Preparing...';
+
+  try {
+    const url = publicPhotoURL(photo.storage_path);
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error('Unable to retrieve this photo.');
+    }
+
+    const blob = await response.blob();
+
+    const objectURL = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+
+    link.href = objectURL;
+    link.download = photo.filename || 'photo.jpg';
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(() => URL.revokeObjectURL(objectURL), 60000);
+
+    button.textContent = '✓ Download Started';
+
+  } catch (error) {
+    console.error('Photo download failed:', error);
+
+    /*
+      Fallback: open the public image URL.
+      The visitor can save it from the browser.
+    */
+
+    const url = publicPhotoURL(photo.storage_path);
+
+    window.open(url, '_blank', 'noopener,noreferrer');
+
+    button.textContent = 'Open Photo';
+  }
+
+  setTimeout(() => {
+    button.disabled = false;
+    button.textContent = originalText;
+  }, 1800);
+}
+
+/* Open a full-size photo in a new browser tab. */
+
+function viewPhoto(id) {
+  const photo = photos.find(item => item.id === id);
+
+  if (!photo) return;
+
+  window.open(
+    publicPhotoURL(photo.storage_path),
+    '_blank',
+    'noopener,noreferrer'
+  );
+}
+
+/* Share the current album link. */
+
+async function shareAlbum() {
+  if (!currentAlbum) return;
+
+  const url = new URL(location.href);
+  url.searchParams.set('album', currentAlbum.id);
+
+  const shareData = {
+    title: currentAlbum.title,
+    text: 'View and download photos from ' + currentAlbum.title,
+    url: url.href
+  };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(url.href);
+
+      showNotice(
+        'Album link copied! You can now share it.',
+        'info'
+      );
+    } else {
+      window.prompt('Copy this album link:', url.href);
+    }
+  } catch (error) {
+    if (error.name !== 'AbortError') {
+      window.prompt('Copy this album link:', url.href);
+    }
+  }
+}
+
+/* Build a ZIP containing the selected photos. */
+
+async function zipDownload(items, filename) {
+  if (!items.length) {
+    showNotice(
+      'There are no photos to download.',
+      'info'
+    );
+
+    return;
+  }
+
+  const buttons = document.querySelectorAll(
+    '.gallery-head button, .gallery-tools button'
+  );
+
+  buttons.forEach(button => button.disabled = true);
+
+  setStatus('Preparing your download...');
+
+  try {
+    const zip = new JSZip();
+
+    const usedNames = new Set();
+
+    for (let i = 0; i < items.length; i++) {
+      const photo = items[i];
+
+      setStatus(
+        'Downloading photo ' + (i + 1) +
+        ' of ' + items.length + '...'
+      );
+
+      const response = await fetch(
+        publicPhotoURL(photo.storage_path)
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          'Could not download ' + photo.filename
+        );
+      }
+
+      const blob = await response.blob();
+
+      let name = photo.filename || ('photo-' + (i + 1) + '.jpg');
+
+      /*
+        Prevent two photos with the same filename
+        from overwriting each other inside the ZIP.
+      */
+
+      if (usedNames.has(name)) {
+        const dot = name.lastIndexOf('.');
+        const base = dot > 0 ? name.slice(0, dot) : name;
+        const ext = dot > 0 ? name.slice(dot) : '';
+
+        let number = 2;
+
+        while (usedNames.has(base + '-' + number + ext)) {
+          number++;
+        }
+
+        name = base + '-' + number + ext;
+      }
+
+      usedNames.add(name);
+
+      zip.file(name, blob);
+    }
+
+    setStatus('Creating your ZIP file...');
+
+    const zipBlob = await zip.generateAsync(
+      { type: 'blob' },
+      metadata => {
+        setStatus(
+          'Preparing ZIP: ' +
+          Math.round(metadata.percent) + '%'
+        );
+      }
+    );
+
+    const objectURL = URL.createObjectURL(zipBlob);
+    const link = document.createElement('a');
+
+    link.href = objectURL;
+    link.download = filename;
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(() => URL.revokeObjectURL(objectURL), 60000);
+
+    setStatus('Your ZIP download has started.');
+
+  } catch (error) {
+    console.error('ZIP download failed:', error);
+
+    setStatus(
+      'Download failed: ' + error.message +
+      '. Try a smaller selection.'
+    );
+
+  } finally {
+    buttons.forEach(button => button.disabled = false);
+  }
+}
+
+/* Download selected photos. */
+
+function downloadSelected() {
+  if (!currentAlbum) return;
+
+  const selectedPhotos = photos.filter(
+    photo => chosen.has(photo.id)
+  );
+
+  zipDownload(
+    selectedPhotos,
+    slug(currentAlbum.title) + '-selected-photos.zip'
+  );
+}
+
+/* Download the entire album. */
+
+function downloadAll() {
+  if (!currentAlbum) return;
+
+  zipDownload(
+    photos,
+    slug(currentAlbum.title) + '-photos.zip'
+  );
+}
+
+/* Start the public gallery. */
+
+loadAlbums();
+</script>
+
+</body>
+</html>
