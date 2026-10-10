@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#11101a">
 <title>Admin Dashboard | Junior Dangote</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 :root {
   --bg: #11101a;
@@ -117,6 +118,62 @@ textarea { min-height: 90px; resize: vertical; }
   gap: 8px;
   flex-wrap: wrap;
   margin-top: 10px;
+}
+  .hidden {
+  display: none !important;
+}
+
+.qr-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(0, 0, 0, 0.82);
+  overflow-y: auto;
+}
+
+.qr-box {
+  width: min(100%, 420px);
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--panel);
+  text-align: center;
+}
+
+.qr-box h2 {
+  overflow-wrap: anywhere;
+}
+
+.qr-close {
+  display: block;
+  margin-left: auto;
+}
+
+.qr-code {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 230px;
+  margin: 20px 0;
+  padding: 16px;
+  background: white;
+  border-radius: 12px;
+}
+
+.qr-code canvas,
+.qr-code img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.qr-link {
+  font-size: 12px;
+  overflow-wrap: anywhere;
 }
 .small { padding: 8px 11px; font-size: 12px; }
 .photo-management {
@@ -326,6 +383,39 @@ a:focus-visible {
   </div>
 </section>
 </main>
+  <div id="qrModal" class="qr-modal hidden">
+  <div class="qr-box">
+    <button id="closeQrModal"
+      class="btn secondary small qr-close"
+      type="button">
+      Close
+    </button>
+
+    <h2 id="qrTitle">Album QR Code</h2>
+
+    <p>
+      Scan this code to open the album on your phone.
+    </p>
+
+    <div id="qrCode" class="qr-code"></div>
+
+    <p id="qrLink" class="qr-link"></p>
+
+    <div class="album-actions">
+      <button id="downloadQr"
+        class="btn primary"
+        type="button">
+        Download QR Code
+      </button>
+
+      <button id="printQr"
+        class="btn secondary"
+        type="button">
+        Print QR Code
+      </button>
+    </div>
+  </div>
+</div>
 <script>
 'use strict';
 const SUPABASE_URL =
@@ -512,6 +602,11 @@ async function loadAlbums() {
               data-id="${escapeHTML(album.id)}">
               Upload to this album
             </button>
+            <button class="btn secondary small"
+  data-action="album-qr"
+  data-id="${escapeHTML(album.id)}">
+  Album QR Code
+</button>
             <button class="btn primary small"
               data-action="open-album"
               data-id="${escapeHTML(album.id)}">
@@ -550,6 +645,153 @@ function openPublicAlbum(id) {
   url.searchParams.set('album', id);
   window.open(url.href, '_blank', 'noopener,noreferrer');
 }
+  /* Generate and display a QR code for an album. */
+function showAlbumQR(id) {
+  const album = albums.find(item => item.id === id);
+
+  if (!album) {
+    alert('Album not found.');
+    return;
+  }
+
+  if (typeof QRCode === 'undefined') {
+    alert(
+      'The QR code library did not load. ' +
+      'Check your internet connection and refresh the page.'
+    );
+    return;
+  }
+
+  const url = new URL('./index.html', location.href);
+  url.searchParams.set('album', id);
+
+  const albumURL = url.href;
+
+  $('qrTitle').textContent = album.title;
+  $('qrLink').textContent = albumURL;
+  $('qrCode').replaceChildren();
+
+  new QRCode($('qrCode'), {
+    text: albumURL,
+    width: 220,
+    height: 220,
+    colorDark: '#000000',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+
+  $('qrModal').classList.remove('hidden');
+}
+
+/* Close the QR code window. */
+$('closeQrModal').addEventListener('click', () => {
+  $('qrModal').classList.add('hidden');
+});
+
+$('qrModal').addEventListener('click', event => {
+  if (event.target === $('qrModal')) {
+    $('qrModal').classList.add('hidden');
+  }
+});
+
+/* Download the QR code as a PNG image. */
+$('downloadQr').addEventListener('click', () => {
+  const qr = $('qrCode');
+  const albumName = $('qrTitle').textContent || 'album';
+
+  const canvas = qr.querySelector('canvas');
+  const image = qr.querySelector('img');
+
+  let imageURL;
+
+  if (canvas) {
+    imageURL = canvas.toDataURL('image/png');
+  } else if (image && image.src) {
+    imageURL = image.src;
+  } else {
+    alert('The QR code is not ready yet.');
+    return;
+  }
+
+  const link = document.createElement('a');
+
+  link.href = imageURL;
+  link.download =
+    albumName.replace(/[^a-z0-9_-]/gi, '_') + '-QR.png';
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+});
+
+/* Print the QR code. */
+$('printQr').addEventListener('click', () => {
+  const qr = $('qrCode');
+  const canvas = qr.querySelector('canvas');
+  const image = qr.querySelector('img');
+
+  let imageURL;
+
+  if (canvas) {
+    imageURL = canvas.toDataURL('image/png');
+  } else if (image && image.src) {
+    imageURL = image.src;
+  } else {
+    alert('The QR code is not ready yet.');
+    return;
+  }
+
+  const printWindow = window.open('', '_blank');
+
+  if (!printWindow) {
+    alert('Allow pop-ups to print the QR code.');
+    return;
+  }
+
+  const safeTitle = escapeHTML($('qrTitle').textContent);
+  const safeURL = escapeHTML($('qrLink').textContent);
+
+  printWindow.document.write(`
+    <!doctype html>
+    <html>
+      <head>
+        <title>${safeTitle} - QR Code</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 30px;
+          }
+
+          img {
+            width: 260px;
+            height: 260px;
+            max-width: 100%;
+          }
+
+          p {
+            overflow-wrap: anywhere;
+          }
+
+          @media print {
+            button {
+              display: none;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <h2>${safeTitle}</h2>
+        <img src="${imageURL}" alt="Album QR Code">
+        <p>Scan to open this album</p>
+        <p>${safeURL}</p>
+        <button onclick="window.print()">Print</button>
+      </body>
+    </html>
+  `);
+
+  printWindow.document.close();
+});
 $('albumList').addEventListener('click', async event => {
   const button = event.target.closest('button[data-action]');
   if (!button) return;
@@ -558,8 +800,10 @@ $('albumList').addEventListener('click', async event => {
   if (action === 'select-album') {
     selectAlbum(id);
   } else if (action === 'open-album') {
-    openPublicAlbum(id);
-  } else if (action === 'manage-photos') {
+  openPublicAlbum(id);
+} else if (action === 'album-qr') {
+  showAlbumQR(id);
+} else if (action === 'manage-photos') {
     await toggleAlbumPhotos(id);
   } else if (action === 'delete-album') {
     await deleteAlbum(id);
