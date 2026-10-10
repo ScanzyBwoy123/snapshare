@@ -591,6 +591,75 @@ footer {
     font-size: 18px;
   }
 }
+  /* Full-screen photo viewer */
+.photo-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  background: rgba(10, 9, 16, 0.98);
+}
+
+.photo-viewer.hidden {
+  display: none !important;
+}
+
+.photo-viewer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #171522;
+  border-bottom: 1px solid #373044;
+}
+
+.photo-viewer-back {
+  border: 0;
+  border-radius: 10px;
+  padding: 11px 15px;
+  background: #d6b36a;
+  color: #171321;
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.photo-viewer-title {
+  color: #f8f7f2;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.photo-viewer-content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.photo-viewer-content img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.photo-viewer-download {
+  margin: 0 16px 18px;
+  padding: 13px;
+  border: 0;
+  border-radius: 10px;
+  background: #d6b36a;
+  color: #171321;
+  font-weight: 800;
+  cursor: pointer;
+}
 </style>
 </head>
 
@@ -732,7 +801,34 @@ footer {
 <footer>
   Junior Dangote · Memories worth sharing.
 </footer>
+<!-- Full-screen photo viewer -->
+<div id="photoViewer" class="photo-viewer hidden">
 
+  <div class="photo-viewer-header">
+
+    <button
+      class="photo-viewer-back"
+      onclick="closePhotoViewer()">
+      ← Back to Photos
+    </button>
+
+    <div id="photoViewerTitle" class="photo-viewer-title">
+      Photo
+    </div>
+
+  </div>
+
+  <div class="photo-viewer-content">
+    <img id="photoViewerImage" src="" alt="Selected photo">
+  </div>
+
+  <button
+    class="photo-viewer-download"
+    onclick="downloadViewedPhoto()">
+    ↓ Download This Photo
+  </button>
+
+</div>
 <script>
 /*
   PUBLIC GALLERY CONFIGURATION
@@ -1184,17 +1280,116 @@ async function downloadPhoto(id, button) {
 
 /* Open a full-size photo in a new browser tab. */
 
+/* Open photos inside the website instead of a new tab. */
+
+let viewedPhotoId = null;
+
 function viewPhoto(id) {
   const photo = photos.find(item => item.id === id);
 
   if (!photo) return;
 
-  window.open(
-    publicPhotoURL(photo.storage_path),
-    '_blank',
-    'noopener,noreferrer'
-  );
+  viewedPhotoId = id;
+
+  const viewer = document.getElementById('photoViewer');
+  const image = document.getElementById('photoViewerImage');
+  const title = document.getElementById('photoViewerTitle');
+
+  image.src = publicPhotoURL(photo.storage_path);
+  image.alt = photo.filename || 'Selected photo';
+
+  title.textContent = photo.filename || 'Photo';
+
+  viewer.classList.remove('hidden');
+
+  document.body.style.overflow = 'hidden';
 }
+
+/* Return to the same album without leaving the website. */
+
+function closePhotoViewer() {
+  const viewer = document.getElementById('photoViewer');
+  const image = document.getElementById('photoViewerImage');
+
+  viewer.classList.add('hidden');
+
+  image.src = '';
+
+  viewedPhotoId = null;
+
+  document.body.style.overflow = '';
+}
+
+/* Download the photo currently being viewed. */
+
+async function downloadViewedPhoto() {
+  if (!viewedPhotoId) return;
+
+  const photo = photos.find(
+    item => item.id === viewedPhotoId
+  );
+
+  if (!photo) return;
+
+  const button = document.querySelector(
+    '.photo-viewer-download'
+  );
+
+  const originalText = button.textContent;
+
+  button.disabled = true;
+  button.textContent = 'Preparing download...';
+
+  try {
+    const response = await fetch(
+      publicPhotoURL(photo.storage_path)
+    );
+
+    if (!response.ok) {
+      throw new Error('Unable to download this photo.');
+    }
+
+    const blob = await response.blob();
+    const objectURL = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+
+    link.href = objectURL;
+    link.download = photo.filename || 'photo.jpg';
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(() => URL.revokeObjectURL(objectURL), 60000);
+
+    button.textContent = '✓ Download Started';
+
+  } catch (error) {
+    console.error('Photo download failed:', error);
+
+    showNotice(
+      'Unable to download this photo. Please try again.',
+      'error'
+    );
+
+    button.textContent = 'Download Failed';
+
+  } finally {
+    setTimeout(() => {
+      button.disabled = false;
+      button.textContent = originalText;
+    }, 1800);
+  }
+}
+
+/* Allow visitors to close the viewer using the Escape key. */
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    closePhotoViewer();
+  }
+});
 
 /* Share the current album link. */
 
